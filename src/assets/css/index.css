@@ -1,0 +1,6 @@
+.cardimg {
+  padding: 20px;
+  margin: 0 auto;
+  object-fit: cover;
+  width: 50%;
+}
