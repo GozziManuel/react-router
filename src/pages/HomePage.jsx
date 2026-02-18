@@ -1,9 +1,6 @@
-import Header from "../components/Header";
-
 export default function Homepage() {
   return (
     <>
-      <Header />
       <main className="container-sm mt-4">
         <h1 className="text-center">Benvenuti!</h1>
         <h3 className="text-center">
