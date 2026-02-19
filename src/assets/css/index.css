@@ -4,3 +4,7 @@
   object-fit: cover;
   width: 50%;
 }
+a {
+  color: black;
+  text-decoration: none;
+}
