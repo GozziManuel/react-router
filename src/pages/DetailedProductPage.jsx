@@ -1,13 +1,36 @@
+// IMPORTS
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function DetailedProductPage() {
+  // PARAMS
   const { id } = useParams();
-  const [detailedProduct, SetdetailedProduct] = useState([]);
-  const navigate = useNavigate();
-  const navigateButton = () => {};
 
+  //   STATE
+  const [detailedProduct, SetdetailedProduct] = useState([]);
+
+  //   Navigate FUNCTION
+  const navigate = useNavigate();
+
+  // Buttons
+  //   Prev BUTTON
+  const [prevButton, SetPrevbutton] = useState(parseInt(id));
+  const PrevnavigateButton = () => {
+    SetPrevbutton(prevButton - 1);
+    navigate(`/ProductPage/${prevButton - 1}`);
+    navigate(0);
+  };
+
+  // NextButton
+  const [NextButton, SetNextbutton] = useState(parseInt(id));
+  const NextnavigateButton = () => {
+    SetNextbutton(NextButton + 1);
+    navigate(`/ProductPage/${NextButton + 1}`);
+    navigate(0);
+  };
+
+  //   GettingAPI
   const GetIdProduct = () => {
     axios
       .get(`https://fakestoreapi.com/products/${id}`)
@@ -30,6 +53,7 @@ export default function DetailedProductPage() {
         }
       });
   };
+
   useEffect(GetIdProduct, []);
   if (!detailedProduct) return <h1>Loading...</h1>;
   return (
@@ -37,10 +61,16 @@ export default function DetailedProductPage() {
       <h1>{detailedProduct.title}</h1>
       <img src={detailedProduct.image} alt={detailedProduct.title} />
       <p>{detailedProduct.description}</p>
-      <button className="btn btn-primary" onClick={navigateButton}>
+      <button
+        className="btn btn-primary"
+        onClick={PrevnavigateButton}
+        disabled={detailedProduct.id > 1 ? false : true}
+      >
         Indietro
       </button>
-      <button className="btn btn-primary">Avanti</button>
+      <button className="btn btn-primary" onClick={NextnavigateButton}>
+        Avanti
+      </button>
     </>
   );
 }
